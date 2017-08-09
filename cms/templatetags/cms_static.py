@@ -30,7 +30,6 @@ class StaticWithVersionNode(StaticFilesNode):
     Subclass StaticFilesNode not StaticNode
     to make use of staticfiles_storage in production.
     """
-
     def url(self, context):
         url = super(StaticWithVersionNode, self).url(context)
         return static_with_version(url)
