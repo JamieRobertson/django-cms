@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import template
-from django.templatetags.static import StaticNode
+from django.contrib.staticfiles.templatetags.staticfiles import StaticFilesNode
 
 from cms.utils.urlutils import static_with_version
 
@@ -25,7 +25,11 @@ def do_static_with_version(parser, token):
     return StaticWithVersionNode.handle_token(parser, token)
 
 
-class StaticWithVersionNode(StaticNode):
+class StaticWithVersionNode(StaticFilesNode):
+    """
+    Subclass StaticFilesNode not StaticNode
+    to make use of staticfiles_storage in production.
+    """
 
     def url(self, context):
         url = super(StaticWithVersionNode, self).url(context)
