@@ -59,11 +59,10 @@ def _handle_no_page(request, slug):
     if not slug and settings.DEBUG:
         return TemplateResponse(request, "cms/welcome.html", context)
     try:
-        #add a $ to the end of the url (does not match on the cms anymore)
+        # add a $ to the end of the url (does not match on the cms anymore)
         resolve('%s$' % request.path)
     except Resolver404 as e:
-        # raise a django http 404 page
+        # PH - dont raise 404 here - we need to check legacy server
         exc = Http404(dict(path=request.path, tried=e.args[0]['tried']))
         raise exc
-    raise Http404('CMS Page not found: %s' % request.path)
-
+    # raise Http404('CMS Page not found: %s' % request.path)
