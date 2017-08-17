@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from django.core.urlresolvers import resolve, Resolver404
-from django.http import Http404
+from django.http.response import HttpResponse
 from django.template.response import TemplateResponse
 
 from cms import __version__
@@ -65,6 +65,6 @@ def _handle_no_page(request, slug):
         # PH - dont raise 404 here - we need to check legacy server
         # exc = Http404(dict(path=request.path, tried=e.args[0]['tried']))
         # raise exc
-        return False
+        return HttpResponse('')
     # raise Http404('CMS Page not found: %s' % request.path)
-    return False
+    return HttpResponse('')
