@@ -61,8 +61,10 @@ def _handle_no_page(request, slug):
     try:
         # add a $ to the end of the url (does not match on the cms anymore)
         resolve('%s$' % request.path)
-    except Resolver404 as e:
+    except Resolver404:
         # PH - dont raise 404 here - we need to check legacy server
-        exc = Http404(dict(path=request.path, tried=e.args[0]['tried']))
-        raise exc
+        # exc = Http404(dict(path=request.path, tried=e.args[0]['tried']))
+        # raise exc
+        return False
     # raise Http404('CMS Page not found: %s' % request.path)
+    return False
